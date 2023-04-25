@@ -1,9 +1,17 @@
-import Alert from 'react-bootstrap/Alert'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import { Container, Row, Col, Alert } from 'react-bootstrap'
+import { useAppDispatch, useAppSelector } from './store/redux-hooks/redux-hooks'
+import { selectCurrentUserEmail } from './store/slices/user/user-selectors'
+import { useEffect } from 'react'
+import { checkUserSession } from './store/slices/user/user-slice'
 
-function App() {
+const App = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(checkUserSession())
+    //eslint-disable-next-line
+  }, [])
+
   return (
     <Container>
       <Row>
