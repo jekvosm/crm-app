@@ -1,32 +1,43 @@
-// import { useEffect } from 'react'
+import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 
-// import AuthErrorModal from '../../components/auth-error-modal/auth-error-modal.component'
+import { useAppSelector } from '../../store/redux-hooks/redux-hooks'
+
+import {
+  selectCurrentUser,
+  selectError,
+} from '../../store/slices/user/user-selectors'
 
 import { Col, Container, Row } from 'react-bootstrap'
+import AuthErrorModal from '../../compponents/auth-error-modal/auth-error-modal.component'
 
-// interface stateType {
-//   from: { pathname: string }
-// }
+// const OutletWithSpinner = WithSpinner(Outlet)
+
+interface stateType {
+  from: { pathname: string }
+}
 
 const Authentication = () => {
-  // const navigate = useNavigate()
-  // const location = useLocation()
+  const error = useAppSelector(selectError)
+  const currentUser = useAppSelector(selectCurrentUser)
 
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     const state = location.state as stateType
+  const navigate = useNavigate()
+  const location = useLocation()
 
-  //     if (!state) {
-  //       navigate(`/${currentUser.displayName}`, { replace: true })
-  //     } else {
-  //       const { from } = state
-  //       const { pathname } = from
-  //       navigate(pathname, { replace: true })
-  //     }
-  //   }
-  //   //eslint-disable-next-line
-  // }, [currentUser])
+  useEffect(() => {
+    if (currentUser) {
+      const state = location.state as stateType
+
+      if (!state) {
+        navigate(`/`, { replace: true })
+      } else {
+        const { from } = state
+        const { pathname } = from
+        navigate(pathname, { replace: true })
+      }
+    }
+    //eslint-disable-next-line
+  }, [currentUser])
 
   return (
     <Container
@@ -34,10 +45,7 @@ const Authentication = () => {
       style={{ maxWidth: '20rem' }}
     >
       <Row>
-        <Col className='text-center'>
-          {/* <Logo className='logo' onClick={() => navigate('/')} /> */}
-          LOGO
-        </Col>
+        <Col className='text-center'>CRM</Col>
       </Row>
 
       <Row>
@@ -47,7 +55,7 @@ const Authentication = () => {
         </Col>
       </Row>
 
-      {/* {error && <AuthErrorModal />} */}
+      {error && <AuthErrorModal />}
     </Container>
   )
 }
