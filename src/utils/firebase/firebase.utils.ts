@@ -20,7 +20,11 @@ import {
   Timestamp,
   collection,
   writeBatch,
+  query,
+  getDocs,
 } from 'firebase/firestore'
+
+import { Company } from '../../store/slices/contacts/contacts-slice'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA8aQdBRcYneETRmgPZiHq001YXz89ryrs',
@@ -125,6 +129,18 @@ export const getUserAuth = (): Promise<User | null> => {
       reject
     )
   })
+}
+
+export const getCollection = async (
+  collectionKey: string | undefined
+): Promise<Company[] | void> => {
+  if (!collectionKey) return
+  const collectionRef = collection(db, collectionKey)
+  const q = query(collectionRef)
+
+  const querySnapshot = await getDocs(q)
+
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data() as Company)
 }
 
 export interface ObjectToAdd {

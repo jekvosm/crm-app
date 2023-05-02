@@ -16,16 +16,18 @@ import {
 import storage from 'redux-persist/lib/storage'
 
 import userSlice from './slices/user/user-slice'
+import contactsSlice from './slices/contacts/contacts-slice'
 
 const reducers = combineReducers({
   user: userSlice,
+  contacts: contactsSlice,
 })
 
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: ['user'],
+  blacklist: ['user', 'contacts'],
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)

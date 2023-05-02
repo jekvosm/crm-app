@@ -16,13 +16,13 @@ import ProjectReport from '../routes/project-report/project-report.component'
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      {/* <Route element={<RequireAuth />}> */}
-      <Route path='/' element={<App />}>
-        <Route path='total-contacts' element={<TotalContacts />} />
-        <Route path='calendar' element={<Calendar />} />
-        <Route path='project-report' element={<ProjectReport />} />
+      <Route element={<RequireAuth />}>
+        <Route path='/' element={<App />}>
+          <Route path='total-contacts' element={<TotalContacts />} />
+          <Route path='calendar' element={<Calendar />} />
+          <Route path='project-report' element={<ProjectReport />} />
+        </Route>
       </Route>
-      {/* </Route> */}
 
       <Route path='auth' element={<Authentication />}>
         <Route path='sign-in' element={<SignIn />} />
