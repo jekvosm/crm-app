@@ -23,8 +23,7 @@ import {
   query,
   getDocs,
 } from 'firebase/firestore'
-
-import { Company } from '../../store/slices/contacts/contacts-slice'
+import { Company } from '../../store/slices/contacts/contacts-types'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA8aQdBRcYneETRmgPZiHq001YXz89ryrs',
@@ -144,33 +143,29 @@ export const getCollection = async (
 }
 
 export interface ObjectToAdd {
-  id: string
+  clientId: string
 }
 
 export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
-  collectionKey: string | undefined,
-  objectsToAdd: T[]
+  objectToAdd: T
 ): Promise<void> => {
-  if (!collectionKey || !objectsToAdd) return
+  if (!objectToAdd) return
 
-  const collectionRef = collection(db, collectionKey)
+  const collectionRef = collection(db, 'clients')
   const batch = writeBatch(db)
 
-  objectsToAdd.forEach(object => {
-    const docRef = doc(collectionRef, object.id)
-    batch.set(docRef, object)
-  })
+  const docRef = doc(collectionRef, objectToAdd.clientId)
+  batch.set(docRef, objectToAdd)
 
   await batch.commit()
 }
 
 export const deleteCollectionAndDocuments = async (
-  collectionKey: string | undefined,
   documentKey: string | undefined
 ): Promise<void> => {
-  if (!collectionKey || !documentKey) return
+  if (!documentKey) return
 
-  const collectionRef = collection(db, collectionKey)
+  const collectionRef = collection(db, 'clients')
   const docRef = doc(collectionRef, documentKey)
 
   const batch = writeBatch(db)

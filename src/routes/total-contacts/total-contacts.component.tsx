@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import ContactsTable from '../../compponents/contacts-table/contacts-table.component'
-import MoadalAddClient from '../../compponents/modal-add-client/modal-add-client'
+import MoadalAddClient from '../../compponents/modal-add-client/modal-add-client.component'
 
 import { Alert, Button, Col, Container, Row } from 'react-bootstrap'
 

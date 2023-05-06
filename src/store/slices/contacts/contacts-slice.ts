@@ -4,16 +4,22 @@ import {
   isAnyOf,
   PayloadAction,
 } from '@reduxjs/toolkit'
-import { getCollection } from '../../../utils/firebase/firebase.utils'
+
+import {
+  addCollectionAndDocuments,
+  deleteCollectionAndDocuments,
+  getCollection,
+} from '../../../utils/firebase/firebase.utils'
+
+import { Company, ContactsState } from './contacts-types'
 
 export const fetchContacts = createAsyncThunk<
   Company[] | void,
-  string | undefined,
+  void,
   { rejectValue: string }
->('user/fetchContacts', async (collectionKey, { rejectWithValue }) => {
+>('user/fetchContacts', async (_, { rejectWithValue }) => {
   try {
-    if (!collectionKey) return
-    const contacts = await getCollection(collectionKey)
+    const contacts = await getCollection('clients')
     return contacts
   } catch (error) {
     const { message } = error as Error
@@ -22,26 +28,41 @@ export const fetchContacts = createAsyncThunk<
   }
 })
 
-export type Company = {
-  clientId: string
-  clientName: string
-  'trn-ppsn': number
-  yearEnd: string
-  ard: string
-  companyNumber: number
-  email: string
-  phoneNumber: number
-  companyAddress: string
-}
+export const addClient = createAsyncThunk<
+  Company,
+  Company,
+  { rejectValue: string }
+>('user/addClient', async (company, { rejectWithValue }) => {
+  try {
+    await addCollectionAndDocuments<Company>(company)
+    return company
+  } catch (error) {
+    const { message } = error as Error
 
-type ContactsState = {
-  clients: Company[]
-  statusGetClients: 'idle' | 'pending' | 'succeeded' | 'failed'
-}
+    return rejectWithValue(message)
+  }
+})
+
+export const deleteClient = createAsyncThunk<
+  string,
+  string,
+  { rejectValue: string }
+>('user/deleteClient', async (documentKey, { rejectWithValue }) => {
+  try {
+    await deleteCollectionAndDocuments(documentKey)
+    return documentKey
+  } catch (error) {
+    const { message } = error as Error
+
+    return rejectWithValue(message)
+  }
+})
 
 const initialState: ContactsState = {
   clients: [],
   statusGetClients: 'idle',
+  statusAddClient: 'idle',
+  statusDeleteClient: 'idle',
 }
 
 const userSlice = createSlice({
@@ -61,6 +82,33 @@ const userSlice = createSlice({
       })
       .addCase(fetchContacts.rejected, state => {
         state.statusGetClients = 'failed'
+      })
+      .addCase(addClient.pending, state => {
+        state.statusAddClient = 'pending'
+      })
+      .addCase(addClient.fulfilled, (state, action) => {
+        state.statusAddClient = 'succeeded'
+        const client = state.clients.find(
+          client => client.clientId === action.payload.clientId
+        )
+        if (!client) {
+          state.clients.push(action.payload)
+        }
+      })
+      .addCase(addClient.rejected, state => {
+        state.statusAddClient = 'failed'
+      })
+      .addCase(deleteClient.pending, state => {
+        state.statusDeleteClient = 'pending'
+      })
+      .addCase(deleteClient.fulfilled, (state, action) => {
+        state.statusDeleteClient = 'succeeded'
+        state.clients = state.clients.filter(
+          client => client.clientId !== action.payload
+        )
+      })
+      .addCase(deleteClient.rejected, state => {
+        state.statusDeleteClient = 'failed'
       })
   },
 })

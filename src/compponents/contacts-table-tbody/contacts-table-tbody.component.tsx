@@ -3,7 +3,8 @@ import { FC } from 'react'
 import { Table, flexRender } from '@tanstack/react-table'
 
 import { FormCheck } from 'react-bootstrap'
-import { Company } from '../../store/slices/contacts/contacts-slice'
+
+import { Company } from '../../store/slices/contacts/contacts-types'
 
 type TheadProps = {
   table: Table<Company>

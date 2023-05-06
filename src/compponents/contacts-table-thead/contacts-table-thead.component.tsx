@@ -1,8 +1,7 @@
 import { FC } from 'react'
 
 import { Table, flexRender } from '@tanstack/react-table'
-
-import { Company } from '../contacts-table/makeData'
+import { Company } from '../../store/slices/contacts/contacts-types'
 
 type TheadProps = {
   table: Table<Company>

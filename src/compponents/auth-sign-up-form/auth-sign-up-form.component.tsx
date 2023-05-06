@@ -95,9 +95,7 @@ const AuthSignUpForm = () => {
           />
         </FloatingLabel>
       </Form.Group>
-      <Button type='submit' className='accent-button'>
-        Зарегистрироваться
-      </Button>
+      <Button type='submit'>Зарегистрироваться</Button>
     </Form>
   )
 }

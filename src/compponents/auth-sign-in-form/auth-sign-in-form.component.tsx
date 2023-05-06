@@ -57,16 +57,14 @@ const AuthSignInForm = () => {
           <Form.Control
             onChange={handlerChange}
             type='password'
-            placeholder='name@example.ru'
+            placeholder='password'
             name='password'
             value={password}
             required
           />
         </FloatingLabel>
       </Form.Group>
-      <Button type='submit' className='accent-button'>
-        Войти
-      </Button>
+      <Button type='submit'>Войти</Button>
     </Form>
   )
 }
