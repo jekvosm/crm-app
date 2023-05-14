@@ -1,7 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
 
-import { ReactComponent as EditSVG } from '../../assets/edit.svg'
-
 import { FormCheck } from 'react-bootstrap'
 
 import {
@@ -10,6 +8,7 @@ import {
 } from '../../store/slices/contacts/contacts-types'
 
 import DeleteAction from '../delete-action/delete-action.component'
+import EditAction from '../edit-action/edit-action.component'
 
 export const tableColumns: ColumnDef<Company>[] = [
   {
@@ -63,7 +62,7 @@ export const tableColumns: ColumnDef<Company>[] = [
 
       return (
         <span>
-          <EditSVG width={25} height={25} />
+          <EditAction clientId={clientId} />
           <DeleteAction clientId={clientId} />
         </span>
       )

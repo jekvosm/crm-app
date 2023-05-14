@@ -150,6 +150,24 @@ export const addCollectionAndDocuments = async <T extends ObjectToAdd>(
   objectToAdd: T
 ): Promise<void> => {
   if (!objectToAdd) return
+  if (!objectToAdd.clientId) {
+    throw Error('You need write client id!')
+  }
+
+  const collectionRef = collection(db, 'clients')
+  const docRef = doc(collectionRef, objectToAdd.clientId)
+
+  const batch = writeBatch(db)
+
+  batch.set(docRef, objectToAdd)
+
+  await batch.commit()
+}
+
+export const updateDocuments = async <T extends ObjectToAdd>(
+  objectToAdd: T
+): Promise<void> => {
+  if (!objectToAdd) return
 
   const collectionRef = collection(db, 'clients')
   const batch = writeBatch(db)

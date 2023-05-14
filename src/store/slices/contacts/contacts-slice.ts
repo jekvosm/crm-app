@@ -9,9 +9,10 @@ import {
   addCollectionAndDocuments,
   deleteCollectionAndDocuments,
   getCollection,
+  updateDocuments,
 } from '../../../utils/firebase/firebase.utils'
 
-import { Company, ContactsState } from './contacts-types'
+import { Company, ContactsState, ModalPayload } from './contacts-types'
 
 export const fetchContacts = createAsyncThunk<
   Company[] | void,
@@ -43,6 +44,21 @@ export const addClient = createAsyncThunk<
   }
 })
 
+export const updateClient = createAsyncThunk<
+  Company,
+  Company,
+  { rejectValue: string }
+>('user/updateClient', async (company, { rejectWithValue }) => {
+  try {
+    await updateDocuments<Company>(company)
+    return company
+  } catch (error) {
+    const { message } = error as Error
+
+    return rejectWithValue(message)
+  }
+})
+
 export const deleteClient = createAsyncThunk<
   string,
   string,
@@ -60,15 +76,44 @@ export const deleteClient = createAsyncThunk<
 
 const initialState: ContactsState = {
   clients: [],
+  clientForEdit: null,
   statusGetClients: 'idle',
   statusAddClient: 'idle',
+  statusUpdateClient: 'idle',
   statusDeleteClient: 'idle',
+  errorMessage: '',
+  modal: {
+    isShowModal: false,
+    typeModal: 'add',
+  },
 }
 
 const userSlice = createSlice({
   name: 'clients',
   initialState,
-  reducers: {},
+  reducers: {
+    setClientForEdit: (state, action: PayloadAction<string | null>) => {
+      if (!action.payload) {
+        state.clientForEdit = null
+        return
+      }
+      state.clientForEdit = state.clients.find(
+        client => client.clientId === action.payload
+      ) as Company
+    },
+
+    clearErrorMessage: state => {
+      state.errorMessage = ''
+    },
+
+    showModal: (state, action: PayloadAction<ModalPayload>) => {
+      const { isShowModal, typeModal } = action.payload
+
+      typeModal
+        ? (state.modal = { isShowModal, typeModal })
+        : (state.modal.isShowModal = isShowModal)
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchContacts.pending, state => {
@@ -94,9 +139,29 @@ const userSlice = createSlice({
         if (!client) {
           state.clients.push(action.payload)
         }
+        state.modal = { ...state.modal, isShowModal: false }
       })
-      .addCase(addClient.rejected, state => {
+      .addCase(addClient.rejected, (state, action) => {
         state.statusAddClient = 'failed'
+        if (action.payload) {
+          state.errorMessage = action.payload
+        }
+      })
+      .addCase(updateClient.pending, state => {
+        state.statusUpdateClient = 'pending'
+      })
+      .addCase(updateClient.fulfilled, (state, action) => {
+        state.statusUpdateClient = 'succeeded'
+        state.clients = state.clients.map(client => {
+          return client.clientId === action.payload.clientId
+            ? action.payload
+            : client
+        })
+        state.modal = { ...state.modal, isShowModal: false }
+        state.clientForEdit = null
+      })
+      .addCase(updateClient.rejected, state => {
+        state.statusUpdateClient = 'failed'
       })
       .addCase(deleteClient.pending, state => {
         state.statusDeleteClient = 'pending'
@@ -106,6 +171,8 @@ const userSlice = createSlice({
         state.clients = state.clients.filter(
           client => client.clientId !== action.payload
         )
+        state.modal = { ...state.modal, isShowModal: false }
+        state.clientForEdit = null
       })
       .addCase(deleteClient.rejected, state => {
         state.statusDeleteClient = 'failed'
@@ -113,6 +180,7 @@ const userSlice = createSlice({
   },
 })
 
-// export const {  } = userSlice.actions
+export const { setClientForEdit, clearErrorMessage, showModal } =
+  userSlice.actions
 
 export default userSlice.reducer

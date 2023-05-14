@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useAppDispatch } from '../../store/redux-hooks/redux-hooks'
+import { showModal } from '../../store/slices/contacts/contacts-slice'
 
 import ContactsTable from '../../compponents/contacts-table/contacts-table.component'
-import MoadalAddClient from '../../compponents/modal-add-client/modal-add-client.component'
+import ModalClient from '../../compponents/modal-client/modal-client.component'
 
 import { Alert, Button, Col, Container, Row } from 'react-bootstrap'
 
 const TotalContacts = () => {
-  const [modalShow, setModalShow] = useState(false)
+  const dispatch = useAppDispatch()
 
   return (
     <>
@@ -20,7 +21,9 @@ const TotalContacts = () => {
               <Button
                 variant='warning'
                 className='my-1'
-                onClick={() => setModalShow(true)}
+                onClick={() =>
+                  dispatch(showModal({ isShowModal: true, typeModal: 'add' }))
+                }
               >
                 Add +
               </Button>
@@ -32,7 +35,7 @@ const TotalContacts = () => {
         </Container>
       </Alert>
 
-      <MoadalAddClient show={modalShow} onHide={() => setModalShow(false)} />
+      <ModalClient />
     </>
   )
 }
