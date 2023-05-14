@@ -17,7 +17,7 @@ const WithSpinner = (Component: FC): React.FC => {
     return isLoadingCheckUser || isLoadingSignOut ? (
       <Container>
         <Row
-          style={{ height: '90vh' }}
+          // style={{ height: '90vh' }}
           className='justify-content-center align-content-center'
         >
           <Col className='flex-grow-0'>

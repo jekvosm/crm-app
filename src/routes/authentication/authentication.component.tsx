@@ -8,10 +8,11 @@ import {
   selectError,
 } from '../../store/slices/user/user-selectors'
 
-import { Col, Container, Row } from 'react-bootstrap'
+import { Badge, Col, Container, Row } from 'react-bootstrap'
 import AuthErrorModal from '../../compponents/auth-error-modal/auth-error-modal.component'
+import WithSpinner from '../../compponents/with-spinner/with-spinner.component'
 
-// const OutletWithSpinner = WithSpinner(Outlet)
+const OutletWithSpinner = WithSpinner(Outlet)
 
 interface stateType {
   from: { pathname: string }
@@ -45,13 +46,16 @@ const Authentication = () => {
       style={{ maxWidth: '20rem' }}
     >
       <Row>
-        <Col className='text-center'>CRM</Col>
+        <Col className='text-center'>
+          <Badge bg='primary' className='d-inline-block fs-1'>
+            CRM
+          </Badge>
+        </Col>
       </Row>
 
       <Row>
         <Col className='d-flex flex-column justify-content-center align-content-center gap-3'>
-          {/* <OutletWithSpinner /> */}
-          <Outlet />
+          <OutletWithSpinner />
         </Col>
       </Row>
 
