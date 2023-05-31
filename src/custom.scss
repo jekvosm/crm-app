@@ -1,5 +1,19 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 
+$utilities: map-merge(
+  $utilities,
+  (
+    'cursor': (
+      property: cursor,
+      class: cursor,
+      responsive: true,
+      values: auto pointer grab,
+    ),
+  )
+);
+
+@import 'bootstrap/scss/utilities/api';
+
 body {
   background-color: #dcdde1;
 }

@@ -17,7 +17,7 @@ const DeleteAction: FC<DeleteActionProps> = ({ clientId }) => {
   const dispatch = useAppDispatch()
 
   return (
-    <span>
+    <span className='cursor-pointer'>
       <DeleteSVG
         width={25}
         height={25}

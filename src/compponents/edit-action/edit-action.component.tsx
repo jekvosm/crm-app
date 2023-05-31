@@ -21,7 +21,7 @@ const EditAction: FC<EditActionProps> = ({ clientId }) => {
 
   return (
     <>
-      <span>
+      <span className='cursor-pointer'>
         <EditSVG width={25} height={25} onClick={handleClick} />
       </span>
     </>

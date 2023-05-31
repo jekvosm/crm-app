@@ -1,7 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table'
 
-import { FormCheck } from 'react-bootstrap'
-
 import {
   COMPANY_KEYS,
   Company,
@@ -13,58 +11,63 @@ import EditAction from '../edit-action/edit-action.component'
 export const tableColumns: ColumnDef<Company>[] = [
   {
     accessorKey: COMPANY_KEYS.clientId,
-    header: () => (
-      <div className='d-flex gap-2 text-nowrap'>
-        <FormCheck type='checkbox' />
-        <span>Client ID</span>
-      </div>
-    ),
+    header: 'Client ID',
+    sortingFn: 'text',
   },
   {
     accessorKey: COMPANY_KEYS.clientName,
-    header: () => <span>Client Name</span>,
+    header: 'Client Name',
+    sortingFn: 'text',
   },
 
   {
     accessorKey: COMPANY_KEYS.trn_ppsn,
-    header: () => <span>TRN/PPSN</span>,
+    header: 'TRN/PPSN',
+    sortingFn: 'alphanumeric',
   },
 
   {
     accessorKey: COMPANY_KEYS.yearEnd,
-    header: () => <span>Year End</span>,
+    header: 'Year End',
+    sortingFn: 'datetime',
   },
   {
     accessorKey: COMPANY_KEYS.ard,
-    header: () => <span>ARD</span>,
+    header: 'ARD',
+    sortingFn: 'datetime',
   },
   {
     accessorKey: COMPANY_KEYS.companyNumber,
-    header: () => <span>Company Number</span>,
+    header: 'Company Number',
+    sortingFn: 'alphanumeric',
   },
   {
     accessorKey: COMPANY_KEYS.email,
-    header: () => <span>Email</span>,
+    header: 'Email',
+    enableSorting: false,
   },
   {
     accessorKey: COMPANY_KEYS.phoneNumber,
-    header: () => <span>Phone Number</span>,
+    header: 'Phone Number',
+    enableSorting: false,
   },
   {
     accessorKey: COMPANY_KEYS.companyAddress,
-    header: () => <span>Company Address</span>,
+    header: 'Company Address',
+    enableSorting: false,
   },
   {
     id: 'actions',
-    header: () => <span>Actions</span>,
+    header: 'Actions',
+    enableSorting: false,
     cell: props => {
       const clientId = props.row.getAllCells()[0].getValue() as string
 
       return (
-        <span>
+        <div className='d-flex gap-2'>
           <EditAction clientId={clientId} />
           <DeleteAction clientId={clientId} />
-        </span>
+        </div>
       )
     },
   },

@@ -1,35 +1,47 @@
-import { useEffect } from 'react'
-
-import { Table as BTable } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
 
 import {
+  SortingState,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+
+import { fetchContacts } from '../../store/slices/contacts/contacts-slice'
+import { selectClients } from '../../store/slices/contacts/contacts-selectors'
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../store/redux-hooks/redux-hooks'
 
 import { tableColumns } from './contacts-table-columns'
 import ContactsTableThead from '../contacts-table-thead/contacts-table-thead.component'
 import ContactsTableTbody from '../contacts-table-tbody/contacts-table-tbody.component'
 import ContactsTablePagination from '../contacts-table-pagination/contacts-table-pagination.component'
-import { fetchContacts } from '../../store/slices/contacts/contacts-slice'
-import {
-  useAppDispatch,
-  useAppSelector,
-} from '../../store/redux-hooks/redux-hooks'
-import { selectClients } from '../../store/slices/contacts/contacts-selectors'
+
+import { Table as BTable } from 'react-bootstrap'
 
 const ContactsTable = () => {
   const dispatch = useAppDispatch()
   const clients = useAppSelector(selectClients)
 
+  const [sorting, setSorting] = useState<SortingState>([])
+
   useEffect(() => {
     dispatch(fetchContacts())
+    //eslint-disable-next-line
   }, [])
 
   const table = useReactTable({
     data: clients,
     columns: tableColumns,
+    state: {
+      sorting,
+    },
+
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     initialState: {

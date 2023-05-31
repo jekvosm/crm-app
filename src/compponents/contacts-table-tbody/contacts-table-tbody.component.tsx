@@ -23,7 +23,9 @@ const ContactsTableTbody: FC<TheadProps> = ({ table }) => {
                     <FormCheck type='checkbox' />
                   ) : null}
 
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  <span>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </span>
                 </div>
               </td>
             )
