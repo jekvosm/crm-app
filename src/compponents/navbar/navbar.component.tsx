@@ -1,25 +1,24 @@
-import { Button, Col, Nav, NavItem, Row, Tab } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+
+import { Nav, NavItem } from 'react-bootstrap'
 
 const Navbar = () => {
+  const { pathname } = useLocation()
+
   return (
-    <Nav
-      variant='pills'
-      defaultActiveKey='total-contacts'
-      className='flex-column'
-    >
+    <Nav variant='pills' activeKey={pathname} className='flex-column'>
       <NavItem>
-        <Nav.Link as={Link} to={'/total-contacts'} eventKey='total-contacts'>
+        <Nav.Link as={Link} to={'/total-contacts'} eventKey='/total-contacts'>
           Total Contacts
         </Nav.Link>
       </NavItem>
       <NavItem>
-        <Nav.Link eventKey='calendar' as={Link} to={'/calendar'}>
+        <Nav.Link as={Link} to={'/calendar'} eventKey='/calendar'>
           Calendar
         </Nav.Link>
       </NavItem>
       <NavItem>
-        <Nav.Link as={Link} eventKey='project-report' to={'/project-report'}>
+        <Nav.Link as={Link} to={'/project-report'} eventKey='/project-report'>
           Project Report
         </Nav.Link>
       </NavItem>

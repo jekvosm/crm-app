@@ -33,6 +33,7 @@ export type ContactsState = {
   statusDeleteClient: 'idle' | 'pending' | 'succeeded' | 'failed'
   errorMessage: string
   modal: Modal
+  globalFilter: string
 }
 
 export type Modal = {

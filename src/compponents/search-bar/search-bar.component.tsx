@@ -1,16 +1,28 @@
-import { Button, Form } from 'react-bootstrap'
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../store/redux-hooks/redux-hooks'
+
+import { setGlobalFilter } from '../../store/slices/contacts/contacts-slice'
+
+import { selectGlobalFilter } from '../../store/slices/contacts/contacts-selectors'
+
+import DebouncedInput from '../debounced-input/debounced-input.component'
 
 const SearchBar = () => {
+  const dispatch = useAppDispatch()
+  const globalFilter = useAppSelector(selectGlobalFilter)
+
   return (
-    <Form className='d-flex'>
-      <Form.Control
+    <div>
+      <DebouncedInput
+        value={globalFilter ?? ''}
+        onChange={value => dispatch(setGlobalFilter(value))}
         type='search'
-        placeholder='Search'
+        placeholder='Search in the table'
         className='me-2'
-        aria-label='Search'
       />
-      <Button variant='outline-success'>Search</Button>
-    </Form>
+    </div>
   )
 }
 export default SearchBar

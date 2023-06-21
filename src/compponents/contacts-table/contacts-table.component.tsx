@@ -3,13 +3,17 @@ import { useEffect, useState } from 'react'
 import {
   SortingState,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 
 import { fetchContacts } from '../../store/slices/contacts/contacts-slice'
-import { selectClients } from '../../store/slices/contacts/contacts-selectors'
+import {
+  selectClients,
+  selectGlobalFilter,
+} from '../../store/slices/contacts/contacts-selectors'
 import {
   useAppDispatch,
   useAppSelector,
@@ -25,21 +29,30 @@ import { Table as BTable } from 'react-bootstrap'
 const ContactsTable = () => {
   const dispatch = useAppDispatch()
   const clients = useAppSelector(selectClients)
+  const globalFilter = useAppSelector(selectGlobalFilter)
 
   const [sorting, setSorting] = useState<SortingState>([])
+
+  const [filter, setFilter] = useState(globalFilter)
 
   useEffect(() => {
     dispatch(fetchContacts())
     //eslint-disable-next-line
   }, [])
 
+  useEffect(() => {
+    setFilter(globalFilter)
+  }, [globalFilter])
+
   const table = useReactTable({
     data: clients,
     columns: tableColumns,
     state: {
       sorting,
+      globalFilter: filter,
     },
-
+    onGlobalFilterChange: setFilter,
+    getFilteredRowModel: getFilteredRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),

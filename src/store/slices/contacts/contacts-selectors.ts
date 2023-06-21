@@ -39,3 +39,8 @@ export const selectIsLoadingClient = createSelector(
     contacts.statusUpdateClient === 'pending' ||
     contacts.statusDeleteClient === 'pending'
 )
+
+export const selectGlobalFilter = createSelector(
+  [selectContacts],
+  contacts => contacts.globalFilter
+)

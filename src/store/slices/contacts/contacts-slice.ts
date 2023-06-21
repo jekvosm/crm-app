@@ -86,6 +86,7 @@ const initialState: ContactsState = {
     isShowModal: false,
     typeModal: 'add',
   },
+  globalFilter: '',
 }
 
 const userSlice = createSlice({
@@ -112,6 +113,10 @@ const userSlice = createSlice({
       typeModal
         ? (state.modal = { isShowModal, typeModal })
         : (state.modal.isShowModal = isShowModal)
+    },
+
+    setGlobalFilter: (state, action: PayloadAction<string | number>) => {
+      state.globalFilter = String(action.payload)
     },
   },
   extraReducers: builder => {
@@ -180,7 +185,11 @@ const userSlice = createSlice({
   },
 })
 
-export const { setClientForEdit, clearErrorMessage, showModal } =
-  userSlice.actions
+export const {
+  setClientForEdit,
+  clearErrorMessage,
+  showModal,
+  setGlobalFilter,
+} = userSlice.actions
 
 export default userSlice.reducer
