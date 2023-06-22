@@ -10,19 +10,23 @@ import {
 } from '@tanstack/react-table'
 
 import { fetchContacts } from '../../store/slices/contacts/contacts-slice'
+
 import {
   selectClients,
   selectGlobalFilter,
 } from '../../store/slices/contacts/contacts-selectors'
+
 import {
   useAppDispatch,
   useAppSelector,
 } from '../../store/redux-hooks/redux-hooks'
 
 import { tableColumns } from './contacts-table-columns'
+
 import ContactsTableThead from '../contacts-table-thead/contacts-table-thead.component'
 import ContactsTableTbody from '../contacts-table-tbody/contacts-table-tbody.component'
 import ContactsTablePagination from '../contacts-table-pagination/contacts-table-pagination.component'
+import RowMessageInTable from '../row-message-in-table/row-message-in-table.component'
 
 import { Table as BTable } from 'react-bootstrap'
 
@@ -72,11 +76,7 @@ const ContactsTable = () => {
           <ContactsTableTbody table={table} />
         ) : (
           <tbody>
-            <tr>
-              <td colSpan={10} align='center' className='fs-3'>
-                no clients
-              </td>
-            </tr>
+            <RowMessageInTable text='No Clients' />
           </tbody>
         )}
       </BTable>
