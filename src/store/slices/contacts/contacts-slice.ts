@@ -1,9 +1,4 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  isAnyOf,
-  PayloadAction,
-} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import {
   addCollectionAndDocuments,
