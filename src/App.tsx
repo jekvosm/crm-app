@@ -21,6 +21,7 @@ const App = () => {
     if (pathname === '/') {
       navigate('/total-contacts')
     }
+
     //eslint-disable-next-line
   }, [location])
 
