@@ -7,7 +7,7 @@ type RowMessageProps = {
 const RowMessageInTable: FC<RowMessageProps> = ({ text }) => {
   return (
     <tr>
-      <td colSpan={10} align='center' className='fs-3'>
+      <td colSpan={11} align='center' className='fs-3'>
         {text}
       </td>
     </tr>

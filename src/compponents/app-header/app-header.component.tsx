@@ -3,7 +3,7 @@ import SearchBar from '../search-bar/search-bar.component'
 
 const AppHeader = () => {
   return (
-    <header className='d-flex justify-content-between pt-1'>
+    <header className='d-flex justify-content-between pt-1 align-items-center'>
       <SearchBar />
       <UserInfo />
     </header>

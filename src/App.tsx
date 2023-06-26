@@ -37,7 +37,7 @@ const App = () => {
             log out
           </Button>
         </Col>
-        <Col className='d-flex flex-column gap-4'>
+        <Col className='d-flex flex-column gap-3'>
           <AppHeader />
           <Outlet />
         </Col>
