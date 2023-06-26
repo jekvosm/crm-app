@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 
-import { NavLink } from 'react-bootstrap'
 import AuthSignInForm from '../../compponents/auth-sign-in-form/auth-sign-in-form.component'
+
+import { NavLink } from 'react-bootstrap'
 
 const SignIn = () => {
   return (

@@ -26,16 +26,16 @@ const Authentication = () => {
   const location = useLocation()
 
   useEffect(() => {
-    if (currentUser) {
-      const state = location.state as stateType
+    const state = location.state as stateType
 
-      if (!state) {
-        navigate(`/`, { replace: true })
-      } else {
-        const { from } = state
-        const { pathname } = from
-        navigate(pathname, { replace: true })
-      }
+    if (!state) {
+      navigate('/', { replace: true })
+    }
+
+    if (currentUser && state) {
+      const { from: pathname } = state
+
+      navigate(pathname, { replace: true })
     }
     //eslint-disable-next-line
   }, [currentUser])

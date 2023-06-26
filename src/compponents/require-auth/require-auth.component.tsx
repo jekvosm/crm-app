@@ -15,7 +15,7 @@ const RequireAuth = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    dispatch(checkUserSession())
+    if (!currentUser) dispatch(checkUserSession())
     //eslint-disable-next-line
   }, [])
 
