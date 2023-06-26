@@ -21,18 +21,9 @@ const ContactsTableTbody: FC<TheadProps> = ({ table }) => {
             {row.getVisibleCells().map(cell => {
               return (
                 <td key={cell.id}>
-                  <div className='d-flex gap-2 text-nowrap'>
-                    {cell.id.includes('clientId') ? (
-                      <FormCheck type='checkbox' />
-                    ) : null}
-
-                    <span>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </span>
-                  </div>
+                  <span className='text-nowrap'>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </span>
                 </td>
               )
             })}

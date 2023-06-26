@@ -39,6 +39,8 @@ const ContactsTable = () => {
 
   const [filter, setFilter] = useState(globalFilter)
 
+  const [rowSelection, setRowSelection] = useState({})
+
   useEffect(() => {
     dispatch(fetchContacts())
     //eslint-disable-next-line
@@ -54,6 +56,7 @@ const ContactsTable = () => {
     state: {
       sorting,
       globalFilter: filter,
+      rowSelection,
     },
     onGlobalFilterChange: setFilter,
     getFilteredRowModel: getFilteredRowModel(),
@@ -61,6 +64,7 @@ const ContactsTable = () => {
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onRowSelectionChange: setRowSelection,
     initialState: {
       pagination: {
         pageSize: 9,

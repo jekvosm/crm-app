@@ -25,43 +25,38 @@ const ContactsTableThead: FC<TheadProps> = ({ table }) => {
         <tr key={headerGroup.id}>
           {headerGroup.headers.map(header => (
             <th key={header.id} colSpan={header.colSpan}>
-              <div className='d-flex gap-2'>
-                {header.id === COMPANY_KEYS.clientId ? (
-                  <FormCheck type='checkbox' />
-                ) : null}
-                {header.isPlaceholder ? null : (
-                  <div
-                    {...{
-                      className: header.column.getCanSort()
-                        ? `${headerStyles} cursor-pointer user-select-none`
-                        : headerStyles,
-                      onClick: header.column.getToggleSortingHandler(),
-                    }}
-                  >
-                    <Col>
-                      <span>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                      </span>
-                    </Col>
+              {header.isPlaceholder ? null : (
+                <div
+                  {...{
+                    className: header.column.getCanSort()
+                      ? `${headerStyles} cursor-pointer user-select-none`
+                      : headerStyles,
+                    onClick: header.column.getToggleSortingHandler(),
+                  }}
+                >
+                  <Col>
+                    <span>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                    </span>
+                  </Col>
 
-                    {{
-                      asc: (
-                        <Col>
-                          <SortUpSVG height={20} width={20} />
-                        </Col>
-                      ),
-                      desc: (
-                        <Col>
-                          <SortDownSVG height={20} width={20} />
-                        </Col>
-                      ),
-                    }[header.column.getIsSorted() as string] ?? null}
-                  </div>
-                )}
-              </div>
+                  {{
+                    asc: (
+                      <Col>
+                        <SortUpSVG height={20} width={20} />
+                      </Col>
+                    ),
+                    desc: (
+                      <Col>
+                        <SortDownSVG height={20} width={20} />
+                      </Col>
+                    ),
+                  }[header.column.getIsSorted() as string] ?? null}
+                </div>
+              )}
             </th>
           ))}
         </tr>

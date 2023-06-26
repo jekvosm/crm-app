@@ -7,8 +7,35 @@ import {
 
 import DeleteAction from '../delete-action/delete-action.component'
 import EditAction from '../edit-action/edit-action.component'
+import ContactsTableCheckbox from '../contacts-table-checkbox/contacts-table-checkbox.component'
 
 export const tableColumns: ColumnDef<Company>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <div className='px-1'>
+        <ContactsTableCheckbox
+          {...{
+            checked: table.getIsAllRowsSelected(),
+            indeterminate: table.getIsSomeRowsSelected(),
+            onChange: table.getToggleAllRowsSelectedHandler(),
+          }}
+        />
+      </div>
+    ),
+    cell: ({ row }) => (
+      <div className='px-1'>
+        <ContactsTableCheckbox
+          {...{
+            checked: row.getIsSelected(),
+            disabled: !row.getCanSelect(),
+            indeterminate: row.getIsSomeSelected(),
+            onChange: row.getToggleSelectedHandler(),
+          }}
+        />
+      </div>
+    ),
+  },
   {
     accessorKey: COMPANY_KEYS.clientId,
     header: 'Client ID',
@@ -60,8 +87,8 @@ export const tableColumns: ColumnDef<Company>[] = [
     id: 'actions',
     header: 'Actions',
     enableSorting: false,
-    cell: props => {
-      const clientId = props.row.getAllCells()[0].getValue() as string
+    cell: ({ row }) => {
+      const clientId = row.getAllCells()[0].getValue() as string
 
       return (
         <div className='d-flex gap-2'>
