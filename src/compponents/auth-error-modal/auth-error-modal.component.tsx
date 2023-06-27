@@ -25,11 +25,13 @@ const AuthErrorModal: FC = () => {
       </Modal.Header>
 
       <Modal.Body>
-        <ModalTitle>1321</ModalTitle>
+        <Modal.Title>{error}</Modal.Title>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant='success'>Close</Button>
+        <Button variant='success' onClick={closeHandler} autoFocus>
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
   )

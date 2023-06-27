@@ -2,15 +2,12 @@ import { FC } from 'react'
 
 import { Table, flexRender } from '@tanstack/react-table'
 
-import {
-  COMPANY_KEYS,
-  Company,
-} from '../../store/slices/contacts/contacts-types'
+import { Company } from '../../store/slices/contacts/contacts-types'
 
 import { ReactComponent as SortDownSVG } from '../../assets/sort_down.svg'
 import { ReactComponent as SortUpSVG } from '../../assets/sort_up.svg'
 
-import { Col, FormCheck } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 
 type TheadProps = {
   table: Table<Company>

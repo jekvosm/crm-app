@@ -2,8 +2,6 @@ import { FC } from 'react'
 
 import { Table, flexRender } from '@tanstack/react-table'
 
-import { FormCheck } from 'react-bootstrap'
-
 import { Company } from '../../store/slices/contacts/contacts-types'
 
 import RowMessageInTable from '../row-message-in-table/row-message-in-table.component'
