@@ -5,7 +5,7 @@ import {
   useAppSelector,
 } from '../../store/redux-hooks/redux-hooks'
 
-import { Button, Modal, ModalTitle } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import { selectError } from '../../store/slices/user/user-selectors'
 import { setErrorMessage } from '../../store/slices/user/user-slice'
 
