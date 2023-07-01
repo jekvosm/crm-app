@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import type { OutletProps } from 'react-router-dom'
 
 import { useAppSelector } from '../../store/redux-hooks/redux-hooks'
 
@@ -12,7 +13,9 @@ import { Badge, Col, Container, Row } from 'react-bootstrap'
 import AuthErrorModal from '../../compponents/auth-error-modal/auth-error-modal.component'
 import WithSpinner from '../../compponents/with-spinner/with-spinner.component'
 
-const OutletWithSpinner = WithSpinner(Outlet)
+const OutletWithSpinner = WithSpinner<OutletProps & JSX.IntrinsicAttributes>(
+  Outlet
+)
 
 interface stateType {
   from: { pathname: string }
