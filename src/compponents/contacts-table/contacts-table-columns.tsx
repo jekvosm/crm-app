@@ -88,7 +88,7 @@ export const tableColumns: ColumnDef<Company>[] = [
     header: 'Actions',
     enableSorting: false,
     cell: ({ row }) => {
-      const clientId = row.getAllCells()[0].getValue() as string
+      const clientId = row.original.clientId
 
       return (
         <div className='d-flex gap-2'>
