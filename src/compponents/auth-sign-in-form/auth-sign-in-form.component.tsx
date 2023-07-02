@@ -64,7 +64,7 @@ const AuthSignInForm = () => {
           />
         </FloatingLabel>
       </Form.Group>
-      <Button type='submit'>Войти</Button>
+      <Button type='submit'>Sign in</Button>
     </Form>
   )
 }

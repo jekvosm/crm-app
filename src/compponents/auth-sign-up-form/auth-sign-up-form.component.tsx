@@ -52,7 +52,7 @@ const AuthSignUpForm = () => {
       className='d-flex flex-column gap-4'
     >
       <Form.Group className='d-flex flex-column gap-3'>
-        <FloatingLabel label='Имя пользователя'>
+        <FloatingLabel label='Name'>
           <Form.Control
             onChange={handleChange}
             type='text'
@@ -73,7 +73,7 @@ const AuthSignUpForm = () => {
           />
         </FloatingLabel>
 
-        <FloatingLabel label='Пароль'>
+        <FloatingLabel label='Password'>
           <Form.Control
             onChange={handleChange}
             type='password'
@@ -84,7 +84,7 @@ const AuthSignUpForm = () => {
           />
         </FloatingLabel>
 
-        <FloatingLabel label='Повторить пароль'>
+        <FloatingLabel label='Repeat password'>
           <Form.Control
             onChange={handleChange}
             type='password'
@@ -95,7 +95,7 @@ const AuthSignUpForm = () => {
           />
         </FloatingLabel>
       </Form.Group>
-      <Button type='submit'>Зарегистрироваться</Button>
+      <Button type='submit'>Sign up</Button>
     </Form>
   )
 }

@@ -8,20 +8,20 @@ const SignIn = () => {
   return (
     <>
       <header className='text-center'>
-        <h2>Уже есть аккаут?</h2>
-        <span>Войти с помощью почты и пароля</span>
+        <h2>Already have an account?</h2>
+        <span>Sign in with email and password</span>
       </header>
 
       <AuthSignInForm />
 
       <span className='text-center'>
-        Ещё нет аккаунта?{' '}
+        Don’t have an account yet?{' '}
         <NavLink
           as={Link}
           to='/auth/sign-up'
           className='d-inline text-decoration-underline'
         >
-          Зарегистрироваться
+          Sign up
         </NavLink>
       </span>
     </>
