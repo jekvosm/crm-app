@@ -29,4 +29,8 @@ body {
   .alert-light {
     --bs-alert-color: #313131;
   }
+
+  .tr-selected {
+    background-color: $blue-100;
+  }
 }

@@ -21,7 +21,12 @@ const ContactsTableTbody: FC<TBodyProps> = ({ table }) => {
         <tbody>
           {table.getRowModel().rows.length ? (
             table.getRowModel().rows.map(row => (
-              <tr key={row.id}>
+              <tr
+                key={row.id}
+                {...{
+                  className: row.getIsSelected() ? 'tr-selected' : '',
+                }}
+              >
                 {row.getVisibleCells().map(cell => {
                   return (
                     <td key={cell.id}>
