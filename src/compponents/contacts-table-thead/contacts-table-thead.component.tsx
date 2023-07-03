@@ -21,7 +21,13 @@ const ContactsTableThead: FC<TheadProps> = ({ table }) => {
       {table.getHeaderGroups().map(headerGroup => (
         <tr key={headerGroup.id}>
           {headerGroup.headers.map(header => (
-            <th key={header.id} colSpan={header.colSpan}>
+            <th
+              key={header.id}
+              colSpan={header.colSpan}
+              {...{
+                className: header.column.getIsSorted() ? 'th-sorted' : '',
+              }}
+            >
               {header.isPlaceholder ? null : (
                 <div
                   {...{
