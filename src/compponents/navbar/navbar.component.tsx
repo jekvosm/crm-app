@@ -6,7 +6,7 @@ const Navbar = () => {
   const { pathname } = useLocation()
 
   return (
-    <Nav variant='pills' activeKey={pathname} className='flex-column'>
+    <Nav variant='pills' activeKey={pathname} className='app__navbar'>
       <NavItem>
         <Nav.Link as={Link} to={'/total-contacts'} eventKey='/total-contacts'>
           Total Contacts

@@ -37,4 +37,67 @@ body {
   .th-sorted {
     background-color: $gray-200;
   }
+
+  .header-dropdown {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .app {
+    .app__sidebar {
+      flex-direction: column;
+
+      .app__logo {
+        margin-bottom: 1.5rem;
+      }
+
+      .app__navbar {
+        flex-direction: column;
+        flex-wrap: nowrap;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .app {
+    .app__section {
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+
+      .app__sidebar {
+        align-items: center;
+
+        .app__navbar {
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .app {
+    .app__section {
+      .app__sidebar {
+        .app__navbar {
+          display: none;
+        }
+
+        .app_button-logout {
+          display: none;
+        }
+
+        .header-dropdown {
+          display: block;
+        }
+      }
+    }
+  }
 }
