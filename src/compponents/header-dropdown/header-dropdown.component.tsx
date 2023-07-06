@@ -2,6 +2,7 @@ import { ButtonGroup, Dropdown, DropdownButton } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { useAppDispatch } from '../../store/redux-hooks/redux-hooks'
 import { signOutUser } from '../../store/slices/user/user-slice'
+import { ReactComponent as MenuSVG } from '../../assets/menu.svg'
 
 const HeaderDropdown = () => {
   const dispatch = useAppDispatch()
@@ -12,7 +13,11 @@ const HeaderDropdown = () => {
       key='primary'
       id={`dropdown-variant-primary`}
       variant='primary'
-      title='Menu'
+      title={
+        <>
+          <MenuSVG width={'2rem'} height={'2rem'} />
+        </>
+      }
       className='header-dropdown'
       menuVariant='dark'
     >
@@ -30,7 +35,6 @@ const HeaderDropdown = () => {
         as={Link}
         to={'/project-report'}
         eventKey='/project-report'
-        active
       >
         Project Report
       </Dropdown.Item>

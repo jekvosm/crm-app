@@ -41,6 +41,10 @@ body {
   .header-dropdown {
     display: none;
   }
+
+  .dropdown-toggle::after {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 1400px) {
@@ -96,6 +100,10 @@ body {
 
         .header-dropdown {
           display: block;
+
+          .btn {
+            padding: 0.2rem 0.4rem;
+          }
         }
       }
     }
